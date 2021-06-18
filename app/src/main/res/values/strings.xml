@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DishApp</string>
+    <string name="bienvenido">Bienvenido a DISHAPP</string>
+    <string name="introduccion">Ordena platos segun tus gustos y ten la confianza de la entrega segura de tus alimentos</string>
 </resources>
