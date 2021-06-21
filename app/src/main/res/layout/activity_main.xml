@@ -6,106 +6,136 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:paddingVertical="20dp"
+    android:padding="20dp"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
-            android:text="@string/bienvenido"
-            android:textColor="@color/black"
-            android:textSize="25dp" />
-
-        <TextView
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/introduccion"
-            android:textColor="@color/red"
-            android:textSize="14dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/categ_platocarta"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:background="@drawable/bg_button"
-                android:elevation="5dp"
-                android:padding="10dp"
-                android:src="@drawable/food" />
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:text="@string/admin"/>
 
-            <ImageButton
-                android:id="@+id/categ_bebida"
-                android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/buttonAdmin"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_admin"
+                    android:background="@color/transparent"
+                    android:tint="@color/yellow"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:background="@drawable/bg_button"
-                android:elevation="5dp"
-                android:padding="10dp"
-                android:src="@drawable/drink" />
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/bienvenido"
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/introduccion"
+                    android:textColor="@color/red"
+                    android:textSize="12dp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/categ_rapido"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:background="@drawable/bg_button"
-                android:elevation="5dp"
-                android:padding="10dp"
-                android:src="@drawable/burger" />
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/categ_postre"
-                android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/categ_platocarta"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bg_button"
+                    android:elevation="5dp"
+                    android:padding="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/food" />
+
+
+                <ImageButton
+                    android:id="@+id/categ_bebida"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bg_button"
+                    android:elevation="5dp"
+                    android:padding="10dp"
+                    android:src="@drawable/drink" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:background="@drawable/bg_button"
-                android:elevation="5dp"
-                android:padding="10dp"
-                android:src="@drawable/cake" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
+                <ImageButton
+                    android:id="@+id/categ_rapido"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bg_button"
+                    android:elevation="5dp"
+                    android:padding="10dp"
+                    android:src="@drawable/burger" />
+
+                <ImageButton
+                    android:id="@+id/categ_postre"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bg_button"
+                    android:elevation="5dp"
+                    android:padding="10dp"
+                    android:src="@drawable/cake" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>
 
