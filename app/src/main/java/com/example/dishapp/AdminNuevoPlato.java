@@ -1,11 +1,15 @@
 package com.example.dishapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -53,8 +57,24 @@ public class AdminNuevoPlato extends AppCompatActivity {
                 break;
 
             case R.id.imgPlato:
-                Toast.makeText(this, "Subir foto plato", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Subir foto plato", Toast.LENGTH_SHORT).show();
+                cargarImagenPlato();
                 break;
         }
     };
+
+    private void cargarImagenPlato() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/");
+        startActivityForResult(intent.createChooser(intent, "Seleccione la Aplicacion"), 10);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Uri path = data.getData();
+            imgPlato.setImageURI(path);
+        }
+    }
 }
