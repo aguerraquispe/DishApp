@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "688057421330",
+    "firebase_url": "https://dishapp-d10bd-default-rtdb.firebaseio.com",
+    "project_id": "dishapp-d10bd",
+    "storage_bucket": "dishapp-d10bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688057421330:android:a6724dc0f09c05009392cb",
+        "android_client_info": {
+          "package_name": "com.example.dishapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688057421330-0bs0mhise1qlj0mu93rro3rr61d555a1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dishapp",
+            "certificate_hash": "6f9a460e3e9d68b05e9cb58b4871957bccea340a"
+          }
+        },
+        {
+          "client_id": "688057421330-r9dc2gsdregic7s1bvuk3os5eqknohdh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATOOLF1k36UuTutBZv6CZ9AXxgz9otHL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688057421330-r9dc2gsdregic7s1bvuk3os5eqknohdh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

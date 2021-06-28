@@ -4,6 +4,8 @@
 
     <!--Permitir acceso a la galeria del dispositivo-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--Permiso de Internet por usar Firebase-->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
