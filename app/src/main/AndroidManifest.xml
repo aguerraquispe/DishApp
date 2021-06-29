@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dishapp">
-
-    <!--Permitir acceso a la galeria del dispositivo-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!--Permiso de Internet por usar Firebase-->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Permitir acceso a la galeria del dispositivo -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- Permiso de Internet por usar Firebase -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DishApp">
-        <activity android:name=".AdminNuevoPlato"></activity>
+        <activity android:name=".AdminListaPlatos"></activity>
+        <activity android:name=".AdminNuevoPlato" />
         <activity android:name=".MainAdmin" />
         <activity android:name=".AdminLogin" />
         <activity android:name=".MainActivity">

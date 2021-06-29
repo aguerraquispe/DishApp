@@ -43,7 +43,7 @@ public class AdminNuevoPlato extends AppCompatActivity {
     private MaterialButton btnRegistrarPlato;
 
     private ImageView imgPlato;
-    public Uri path;
+    public Uri path = null;
     private static final int File = 1;
 
     //Llamar a Firebase
@@ -91,12 +91,14 @@ public class AdminNuevoPlato extends AppCompatActivity {
                 String descripcion_string = txtDescripcionPlato.getText().toString();
                 String precio_string = txtPrecioPlato.getText().toString();
                 String categoria_string = dropdownCategorias.getText().toString();
-                //String imaegn = imgPlato.getDrawable().toString();
+
                 //Toast.makeText(this, imaegn, Toast.LENGTH_SHORT).show();
 
-                if (nombre_string.isEmpty() || descripcion_string.isEmpty() || precio_string.isEmpty() || categoria_string.isEmpty()) {
+                if (nombre_string.isEmpty() || descripcion_string.isEmpty() || precio_string.isEmpty() || categoria_string.isEmpty() || path == null) {
                     validacion();
                 } else {
+                    //obtener codigo simplificado de la imagen
+                    String image_url = path.getLastPathSegment().toString();
                     //Datos correctos- Agregar a la base de datos
                     Plato plato = new Plato();
                     plato.setUid(UUID.randomUUID().toString());
@@ -104,17 +106,16 @@ public class AdminNuevoPlato extends AppCompatActivity {
                     plato.setDescripción(descripcion_string);
                     plato.setPrecio(Double.parseDouble(precio_string));
                     plato.setCategoria(categoria_string);
+                    plato.setImageURL("file" + image_url);
 
                     databaseReference.child("Plato").child(plato.getUid()).setValue(plato);
                     subirImagen();
                     limpiarCajas();
                     Toast.makeText(this, "Plato Registrado", Toast.LENGTH_SHORT).show();
-
                 }
                 break;
 
             case R.id.imgPlato:
-                //Toast.makeText(this, "Subir foto plato", Toast.LENGTH_SHORT).show();
                 cargarImagenPlato();
                 break;
         }
@@ -129,7 +130,9 @@ public class AdminNuevoPlato extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item, categoria);
         dropdownCategorias.setText(adapter.getItem(0).toString(), false);
         dropdownCategorias.setAdapter(adapter);
+        //cambiar imagen por defecto y limpiar codigo de imagen
         imgPlato.setImageDrawable(getDrawable(R.drawable.ic_image));
+        path = null;
     }
 
     private void validacion() {
@@ -146,9 +149,12 @@ public class AdminNuevoPlato extends AppCompatActivity {
             txtPrecioPlato.setError("Precio requerido");
         } else if (categoria_string.isEmpty()) {
             dropdownCategorias.setError("Categoria requerida");
+        } else if (path == null) {
+            Toast.makeText(this, "Debe subir una imagen del plato", Toast.LENGTH_SHORT).show();
         }
     }
 
+    //Pedir imagen que este en el almacenamiento del celular, NO URL
     private void cargarImagenPlato() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/");
@@ -160,58 +166,36 @@ public class AdminNuevoPlato extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+            //obtener codigo de imagen
             path = data.getData();
+            //cambiar imagen
             imgPlato.setImageURI(path);
         }
     }
+    ////////////////////////////////////Fin cargarImagenPlato()
 
     private void subirImagen() {
-        final String randomkey = UUID.randomUUID().toString();
-        StorageReference Folder = storageReference.child("Plato" + randomkey);
+        //final String randomkey = UUID.randomUUID().toString();
+        //StorageReference Folder = storageReference.child("Plato" + randomkey);
 
-        final StorageReference file_name = Folder.child("file"+path.getLastPathSegment());
+        StorageReference Folder = storageReference.child("Plato");
+
+        final StorageReference file_name = Folder.child("file" + path.getLastPathSegment());
 
         file_name.putFile(path)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         //databaseReference.child("Plato").child(plato.getUid()).setValue(plato);
-
                         Toast.makeText(AdminNuevoPlato.this, "Imagen subida", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        /*final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Subiendo....");
-        progressDialog.show();
-
-        final String randomkey = UUID.randomUUID().toString();
-        //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-        StorageReference riversRef = storageReference.child("images/" + randomkey);
-
-        riversRef.putFile(path)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
-                        progressDialog.dismiss();
-                        Snackbar.make(findViewById(R.id.content), "Imagen subida", Snackbar.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         // Handle unsuccessful uploads
-                        progressDialog.dismiss();
                         Toast.makeText(AdminNuevoPlato.this, "Error al subir imagen", Toast.LENGTH_SHORT).show();
                     }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        progressDialog.setMessage("Porcentaje: " + (int) progressPercent + "%");
-                    }
-                });*/
+                });
     }
 }

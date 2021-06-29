@@ -38,7 +38,9 @@ public class MainAdmin extends AppCompatActivity {
     private View.OnClickListener mClicked = view -> {
         switch (view.getId()) {
             case R.id.btnVerPlatos:
-                Toast.makeText(this, "ver platos ", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "ver platos ", Toast.LENGTH_SHORT).show();
+                Intent verPlatos = new Intent(this, AdminListaPlatos.class);
+                startActivity(verPlatos);
                 break;
 
             case R.id.btnNuevoPlato:
