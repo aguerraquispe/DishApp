@@ -1,39 +1,96 @@
 package com.example.dishapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.dishapp.Adapter.Adapter_Plato;
 import com.example.dishapp.model.Plato;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminListaPlatos extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    List<Plato> elements;
+    RecyclerView rv_platos;
+    Adapter_Plato adapter_plato;
+    ArrayList<Plato> listPlato;
+
+    //private List<Plato> listPlato;
+    ArrayAdapter<Plato> arrayAdapterPlato;
+
+    //Llamar a Firebase
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    //private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lista_platos);
 
-        elements = new ArrayList<>();
-        elements.add(new Plato());
+        //listPlato = new ArrayList<>();
+        //listPlato.add(new Plato());
 
-        Adapter_Plato adapter_plato = new Adapter_Plato(elements, this);
+        //Adapter_Plato adapter_plato = new Adapter_Plato(listPlato, this);
 
-        recyclerView = (RecyclerView) findViewById(R.id.listaPlatos);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter_plato);
+        rv_platos = (RecyclerView) findViewById(R.id.listaPlatos);
+        //iniciarFirebase();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Plato");
+
+        rv_platos.setHasFixedSize(true);
+        rv_platos.setLayoutManager(new LinearLayoutManager(this));
+
+        listPlato = new ArrayList<>();
+        adapter_plato = new Adapter_Plato(this,listPlato);
+        rv_platos.setAdapter(adapter_plato);
+        listarDatos();
+        //rv_platos.setAdapter(adapter_plato);
 
         //Toast.makeText(this, "Ver platos", Toast.LENGTH_SHORT).show();
+    }
+
+    private void listarDatos() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                    Plato plato = dataSnapshot.getValue(Plato.class);
+
+                    listPlato.add(plato);
+                    Toast.makeText(AdminListaPlatos.this, "Todo ok", Toast.LENGTH_SHORT).show();
+                    //arrayAdapterPlato = new ArrayAdapter<Plato>(AdminListaPlatos.this, android.R.layout.simple_list_item_1, listPlato);
+                    //rv_platos.setAdapter(arrayAdapterPlato);
+                }
+                adapter_plato.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            };
+        });
+    }
+
+    private void iniciarFirebase() {
+        //FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        //storageReference = FirebaseStorage.getInstance().getReference();
     }
 
 }

@@ -7,61 +7,55 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dishapp.R;
 import com.example.dishapp.model.Plato;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder> {
-    private List<Plato> mData;
-    private LayoutInflater mInflater;
-    private Context context;
 
-    public Adapter_Plato(List<Plato> itemList, Context context) {
-        this.mInflater = LayoutInflater.from(context);
+    private Context context;
+    private ArrayList<Plato> list_plato;
+
+    public Adapter_Plato(final Context context, final ArrayList<Plato> list_plato) {
         this.context = context;
-        this.mData = itemList;
+        this.list_plato = list_plato;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.info_plato_admin, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(Adapter_Plato.ViewHolder holder, int position) {
+        Plato plato = list_plato.get(position);
+        holder.tvNombrePlato.setText(plato.getNombrePlato());
+        holder.tvDescripciónPlato.setText(plato.getDescripción());
+        holder.tvCategoriaPlato.setText(plato.getCategoria());
+        holder.tvPrecioPlato.setText((int) plato.getPrecio());
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
-    }
-
-    @Override
-    public Adapter_Plato.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        View view = mInflater.inflate(R.layout.lista_platos, null);
-        return new Adapter_Plato.ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(final Adapter_Plato.ViewHolder holder, final int position) {
-        holder.bindData(mData.get(position));
+        return list_plato.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvNombrePlato, tvDescripciónPlato, tvCategoriaPlato, tvPrecioPlato;
         ImageView imgPlato;
 
-        ViewHolder(View view) {
+        public ViewHolder(View view) {
             super(view);
-            imgPlato = view.findViewById(R.id.imgPlato);
-            tvNombrePlato = view.findViewById(R.id.tvNombrePlato);
+            //imgPlato = view.findViewById(R.id.imgPlato);
+            /*tvNombrePlato = view.findViewById(R.id.tvNombrePlato);
             tvDescripciónPlato = view.findViewById(R.id.tvDescripciónPlato);
             tvCategoriaPlato = view.findViewById(R.id.tvCategoriaPlato);
-            tvPrecioPlato = view.findViewById(R.id.tvPrecioPlato);
-        }
-
-        void bindData(final Plato item) {
-            tvNombrePlato.setText(item.getNombrePlato());
-            tvDescripciónPlato.setText(item.getNombrePlato());
-            tvCategoriaPlato.setText(item.getNombrePlato());
-            tvPrecioPlato.setText(item.getNombrePlato());
+            tvPrecioPlato = view.findViewById(R.id.tvPrecioPlato);*/
         }
     }
 }

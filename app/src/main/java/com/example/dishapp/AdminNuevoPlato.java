@@ -1,22 +1,15 @@
 package com.example.dishapp;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,13 +17,11 @@ import com.example.dishapp.model.Plato;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -70,7 +61,7 @@ public class AdminNuevoPlato extends AppCompatActivity {
 
         //Definir categorias
         String[] categoria = {"Platos a la Carta", "Bebidas", "Comida Rápida", "Postres"};
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item, categoria);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item_admin, categoria);
         dropdownCategorias.setText(adapter.getItem(0).toString(), false);
         dropdownCategorias.setAdapter(adapter);
 
@@ -127,7 +118,7 @@ public class AdminNuevoPlato extends AppCompatActivity {
         txtPrecioPlato.setText("");
 
         String[] categoria = {"Platos a la Carta", "Bebidas", "Comida Rápida", "Postres"};
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item, categoria);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item_admin, categoria);
         dropdownCategorias.setText(adapter.getItem(0).toString(), false);
         dropdownCategorias.setAdapter(adapter);
         //cambiar imagen por defecto y limpiar codigo de imagen
