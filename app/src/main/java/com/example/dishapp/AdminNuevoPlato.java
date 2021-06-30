@@ -3,19 +3,24 @@ package com.example.dishapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.dishapp.model.Plato;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseApp;
@@ -71,39 +76,14 @@ public class AdminNuevoPlato extends AppCompatActivity {
     private void iniciarFirebase() {
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        databaseReference = firebaseDatabase.getReference("Plato");
+        storageReference = FirebaseStorage.getInstance().getReference("Plato");
     }
 
     private View.OnClickListener mClicked = view -> {
         switch (view.getId()) {
             case R.id.btnRegistrarPlato:
-                String nombre_string = txtNombrePlato.getText().toString();
-                String descripcion_string = txtDescripcionPlato.getText().toString();
-                String precio_string = txtPrecioPlato.getText().toString();
-                String categoria_string = dropdownCategorias.getText().toString();
-
-                //Toast.makeText(this, imaegn, Toast.LENGTH_SHORT).show();
-
-                if (nombre_string.isEmpty() || descripcion_string.isEmpty() || precio_string.isEmpty() || categoria_string.isEmpty() || path == null) {
-                    validacion();
-                } else {
-                    //obtener codigo simplificado de la imagen
-                    String image_url = path.getLastPathSegment().toString();
-                    //Datos correctos- Agregar a la base de datos
-                    Plato plato = new Plato();
-                    plato.setUid(UUID.randomUUID().toString());
-                    plato.setNombrePlato(nombre_string);
-                    plato.setDescripción(descripcion_string);
-                    plato.setPrecio(Double.parseDouble(precio_string));
-                    plato.setCategoria(categoria_string);
-                    plato.setImageURL("file" + image_url);
-
-                    databaseReference.child("Plato").child(plato.getUid()).setValue(plato);
-                    subirImagen();
-                    limpiarCajas();
-                    Toast.makeText(this, "Plato Registrado", Toast.LENGTH_SHORT).show();
-                }
+                subirPlato();
                 break;
 
             case R.id.imgPlato:
@@ -111,6 +91,96 @@ public class AdminNuevoPlato extends AppCompatActivity {
                 break;
         }
     };
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void subirPlato() {
+        String nombre_string = txtNombrePlato.getText().toString().trim();
+        String descripcion_string = txtDescripcionPlato.getText().toString().trim();
+        String precio_string = txtPrecioPlato.getText().toString();
+        String categoria_string = dropdownCategorias.getText().toString();
+
+        if (nombre_string.isEmpty() || descripcion_string.isEmpty() || precio_string.isEmpty() || categoria_string.isEmpty() || path == null) {
+            validacion();
+        } else {
+            //Todos los campos estan correctamente llenados, podemos subirlos al firebase
+            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(path));
+            fileReference.putFile(path)
+                    //obtenemos la direccion URL de la imagen almacenada en firebase
+                    .continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+                            return fileReference.getDownloadUrl();
+                        }
+                    })
+                    //Ahora que la imagen se guardo, almacenamos los demas datos
+                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+
+                                //Datos correctos- Agregar a la base de datos
+                                Plato plato = new Plato();
+                                plato.setUid(UUID.randomUUID().toString());
+                                plato.setNombrePlato(nombre_string);
+                                plato.setDescripción(descripcion_string);
+                                plato.setPrecio(Double.parseDouble(precio_string));
+                                plato.setCategoria(categoria_string);
+                                plato.setImageURL(downloadUri.toString());
+
+                                databaseReference.child(plato.getUid()).setValue(plato);
+                                limpiarCajas();
+                                Toast.makeText(AdminNuevoPlato.this, "Plato Registrado", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(AdminNuevoPlato.this, "Fallo al registrar plato: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+            /*
+            fileReference.putFile(path)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            //la imagen se almaceno asi que se pueden subir el resto de datos
+
+                            //obtener codigo simplificado de la imagen
+                            // String image_url;
+                            //Uri imagen = taskSnapshot.getMetadata().getReference().getDownloadUrl();
+
+
+                            //Datos correctos- Agregar a la base de datos
+                            Plato plato = new Plato();
+                            plato.setUid(UUID.randomUUID().toString());
+                            plato.setNombrePlato(nombre_string);
+                            plato.setDescripción(descripcion_string);
+                            plato.setPrecio(Double.parseDouble(precio_string));
+                            plato.setCategoria(categoria_string);
+                            //plato.setImageURL(image_url);
+                            //databaseReference.child("Plato").child(plato.getUid()).setValue(plato);
+                            databaseReference.child(plato.getUid()).setValue(plato);
+                            //subirImagen();
+                            limpiarCajas();
+                            Toast.makeText(AdminNuevoPlato.this, "Plato Registrado", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(this, "Plato Registrado", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(AdminNuevoPlato.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });*/
+        }
+    }
 
     private void limpiarCajas() {
         txtNombrePlato.setText("");

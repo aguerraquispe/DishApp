@@ -13,6 +13,7 @@ import com.example.dishapp.R;
 import com.example.dishapp.model.Plato;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,9 +40,12 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
         holder.tvDescripciónPlato.setText(plato.getDescripción());
         holder.tvNombrePlato.setText(plato.getNombrePlato());
         holder.tvPrecioPlato.setText(plato.toString());
-        //holder.tvIDPlato.setText(plato.getUid());
-        holder.tvImageURLPlato.setText(plato.getImageURL());
-        //holder.imgPlato.getDrawable(R.drawable.burger);
+
+        Picasso.with(context)
+                .load(plato.getImageURL())
+                .fit()
+                .centerCrop()
+                .into(holder.imgPlato);
     }
 
     @Override
@@ -51,7 +55,7 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNombrePlato, tvDescripciónPlato, tvCategoriaPlato, tvPrecioPlato, tvImageURLPlato, tvIDPlato;
+        TextView tvNombrePlato, tvDescripciónPlato, tvCategoriaPlato, tvPrecioPlato;
         ImageView imgPlato;
 
         private StorageReference storageReference;
@@ -63,9 +67,6 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
             tvDescripciónPlato = view.findViewById(R.id.tvDescripciónPlato);
             tvCategoriaPlato = view.findViewById(R.id.tvCategoriaPlato);
             tvPrecioPlato = view.findViewById(R.id.tvPrecioPlato);
-
-            tvImageURLPlato = view.findViewById(R.id.tvImageURLPlato);
-            storageReference = FirebaseStorage.getInstance().getReference("Plato/" + tvImageURLPlato);
         }
     }
 }
