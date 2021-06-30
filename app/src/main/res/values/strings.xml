@@ -1,18 +1,40 @@
 <resources>
     <string name="app_name">DishApp</string>
+    //Menu principal
     <string name="bienvenido">Bienvenido a DISHAPP</string>
     <string name="introduccion">Ordena platos segun tus gustos y ten la confianza de la entrega segura de tus alimentos</string>
-    <string name="intro_admin">DishApp se encarga de un servicio confiable que cuente con todos los protocolos para la seguridad de nuestros clientes, procure utilizar responsablemente el panel de administrador</string>
+
+    //Admin Login
     <string name="admin">Administrador</string>
     <string name="usuario">Usuario</string>
     <string name="password">Contraseña</string>
     <string name="ingresar">Ingresar</string>
+
+    ////Menu admin
+    <string name="intro_admin">DishApp se encarga de un servicio confiable que cuente con todos los protocolos para la seguridad de nuestros clientes, procure utilizar responsablemente el panel de administrador</string>
     <string name="nuevo_pato">Nuevo Plato</string>
     <string name="ver_platos">Ver platos</string>
     <string name="lista_platos">Lista de Pedidos</string>
+
+    //Admin Lista de platos - Admin Nuevo Plato - Info Plato
     <string name="nombrePlato">Nombre del Plato</string>
     <string name="descripcionPlato">Descripcion</string>
     <string name="precio">Precio</string>
     <string name="guardarPlato">Guardar Plato</string>
     <string name="categoria">Categoria</string>
+
+    //Datos de Pedido
+    <string name="datosPedido">Datos de Pedido</string>
+    <string name="nombreUser">Nombre Completo</string>
+    <string name="direccionUser">Dirección</string>
+    <string name="numeroUser">Número</string>
+    <string name="resumenUser">Resumen</string>
+    <string name="precioTotalUser">Precio Total</string>
+    <string name="btnPedir">Pedir</string>
+
+    //Pedido realizado
+    <string name="pedidoRegistradoTitulo">PEDIDO REALIZADO CORRECTAMENTE</string>
+    <string name="pedidoRegistradoMensaje">Su pedido fue registrado exitosamente, pronto nos contactaremos contigo :)</string>
+    <string name="btnFinalizar">Finalizar</string>
+
 </resources>
