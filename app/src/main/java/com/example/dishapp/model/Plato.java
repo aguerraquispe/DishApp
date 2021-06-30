@@ -61,6 +61,6 @@ public class Plato {
 
     @Override
     public String toString() {
-        return NombrePlato;
+        return "" + Precio + "";
     }
 }

@@ -29,27 +29,18 @@ public class AdminListaPlatos extends AppCompatActivity {
     Adapter_Plato adapter_plato;
     ArrayList<Plato> listPlato;
 
-    //private List<Plato> listPlato;
-    ArrayAdapter<Plato> arrayAdapterPlato;
-
     //Llamar a Firebase
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    //private StorageReference storageReference;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lista_platos);
 
-        //listPlato = new ArrayList<>();
-        //listPlato.add(new Plato());
-
-        //Adapter_Plato adapter_plato = new Adapter_Plato(listPlato, this);
-
         rv_platos = (RecyclerView) findViewById(R.id.listaPlatos);
-        //iniciarFirebase();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Plato");
+        iniciarFirebase();
 
         rv_platos.setHasFixedSize(true);
         rv_platos.setLayoutManager(new LinearLayoutManager(this));
@@ -58,9 +49,6 @@ public class AdminListaPlatos extends AppCompatActivity {
         adapter_plato = new Adapter_Plato(this,listPlato);
         rv_platos.setAdapter(adapter_plato);
         listarDatos();
-        //rv_platos.setAdapter(adapter_plato);
-
-        //Toast.makeText(this, "Ver platos", Toast.LENGTH_SHORT).show();
     }
 
     private void listarDatos() {
@@ -68,13 +56,8 @@ public class AdminListaPlatos extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
                     Plato plato = dataSnapshot.getValue(Plato.class);
-
                     listPlato.add(plato);
-                    Toast.makeText(AdminListaPlatos.this, "Todo ok", Toast.LENGTH_SHORT).show();
-                    //arrayAdapterPlato = new ArrayAdapter<Plato>(AdminListaPlatos.this, android.R.layout.simple_list_item_1, listPlato);
-                    //rv_platos.setAdapter(arrayAdapterPlato);
                 }
                 adapter_plato.notifyDataSetChanged();
             }
@@ -89,8 +72,8 @@ public class AdminListaPlatos extends AppCompatActivity {
     private void iniciarFirebase() {
         //FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-        //storageReference = FirebaseStorage.getInstance().getReference();
+        databaseReference = firebaseDatabase.getReference("Plato");
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
 
 }

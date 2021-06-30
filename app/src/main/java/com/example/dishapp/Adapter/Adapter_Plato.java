@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dishapp.R;
 import com.example.dishapp.model.Plato;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -31,12 +33,15 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(Adapter_Plato.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Plato plato = list_plato.get(position);
-        holder.tvNombrePlato.setText(plato.getNombrePlato());
-        holder.tvDescripciónPlato.setText(plato.getDescripción());
         holder.tvCategoriaPlato.setText(plato.getCategoria());
-        holder.tvPrecioPlato.setText((int) plato.getPrecio());
+        holder.tvDescripciónPlato.setText(plato.getDescripción());
+        holder.tvNombrePlato.setText(plato.getNombrePlato());
+        holder.tvPrecioPlato.setText(plato.toString());
+        //holder.tvIDPlato.setText(plato.getUid());
+        holder.tvImageURLPlato.setText(plato.getImageURL());
+        //holder.imgPlato.getDrawable(R.drawable.burger);
     }
 
     @Override
@@ -46,16 +51,21 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNombrePlato, tvDescripciónPlato, tvCategoriaPlato, tvPrecioPlato;
+        TextView tvNombrePlato, tvDescripciónPlato, tvCategoriaPlato, tvPrecioPlato, tvImageURLPlato, tvIDPlato;
         ImageView imgPlato;
+
+        private StorageReference storageReference;
 
         public ViewHolder(View view) {
             super(view);
-            //imgPlato = view.findViewById(R.id.imgPlato);
-            /*tvNombrePlato = view.findViewById(R.id.tvNombrePlato);
+            imgPlato = view.findViewById(R.id.imgPlato);
+            tvNombrePlato = view.findViewById(R.id.tvNombrePlato);
             tvDescripciónPlato = view.findViewById(R.id.tvDescripciónPlato);
             tvCategoriaPlato = view.findViewById(R.id.tvCategoriaPlato);
-            tvPrecioPlato = view.findViewById(R.id.tvPrecioPlato);*/
+            tvPrecioPlato = view.findViewById(R.id.tvPrecioPlato);
+
+            tvImageURLPlato = view.findViewById(R.id.tvImageURLPlato);
+            storageReference = FirebaseStorage.getInstance().getReference("Plato/" + tvImageURLPlato);
         }
     }
 }
