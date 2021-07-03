@@ -4,13 +4,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dishapp.R;
 import com.example.dishapp.model.Plato;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -21,6 +26,13 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
 
     private Context context;
     private ArrayList<Plato> list_plato;
+
+    //Llamar a Firebase
+    //private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private StorageReference storageReference;
+
+    private OnItemClickListener listener;
 
     public Adapter_Plato(final Context context, final ArrayList<Plato> list_plato) {
         this.context = context;
@@ -44,6 +56,7 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
         Picasso.with(context)
                 .load(plato.getImageURL())
                 .fit()
+                .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
                 .into(holder.imgPlato);
     }
@@ -58,7 +71,11 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
         TextView tvNombrePlato, tvDescripciónPlato, tvCategoriaPlato, tvPrecioPlato;
         ImageView imgPlato;
 
-        private StorageReference storageReference;
+        Plato platoSelected;
+
+        ImageButton updatePlato, deletePlato;
+
+        //private StorageReference storageReference;
 
         public ViewHolder(View view) {
             super(view);
@@ -67,7 +84,43 @@ public class Adapter_Plato extends RecyclerView.Adapter<Adapter_Plato.ViewHolder
             tvDescripciónPlato = view.findViewById(R.id.tvDescripciónPlato);
             tvCategoriaPlato = view.findViewById(R.id.tvCategoriaPlato);
             tvPrecioPlato = view.findViewById(R.id.tvPrecioPlato);
+
+            updatePlato = view.findViewById(R.id.updatePlato);
+            deletePlato = view.findViewById(R.id.deletePlato);
+
+            updatePlato.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                String str_position = Integer.toString(position);
+                Toast.makeText(updatePlato.getContext(), "Actualizar " + str_position, Toast.LENGTH_SHORT).show();
+            });
+            deletePlato.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                String str_position = Integer.toString(position);
+                String nombre = tvNombrePlato.getText().toString();
+
+                Toast.makeText(deletePlato.getContext(), "Eliminar " + str_position + "- " + nombre, Toast.LENGTH_SHORT).show();
+            });
         }
+    }
+
+    private void iniciarFirebase() {
+        //FirebaseApp.initializeApp(this);
+        //firebaseDatabase = FirebaseDatabase.getInstance();
+        //databaseReference = firebaseDatabase.getReference("Plato");
+        storageReference = FirebaseStorage.getInstance().getReference("Plato");
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+
+        void onEditClick(int position);
+
+        void onDeleteClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mlistener) {
+        mlistener = listener;
     }
 }
 
