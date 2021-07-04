@@ -36,5 +36,6 @@
     <string name="pedidoRegistradoTitulo">PEDIDO REALIZADO CORRECTAMENTE</string>
     <string name="pedidoRegistradoMensaje">Su pedido fue registrado exitosamente, pronto nos contactaremos contigo :)</string>
     <string name="btnFinalizar">Finalizar</string>
+    <string name="editarPlato">Editar Plato</string>
 
 </resources>

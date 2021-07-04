@@ -46,6 +46,8 @@ dependencies {
 
     //plugin para imagenes
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    //plugin para cuadros de dialogo
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
 }
 //Implementando Firebase
 apply plugin: 'com.android.application'

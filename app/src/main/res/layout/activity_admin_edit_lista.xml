@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:text="Update Content Panel"
+        android:textColor="#fff"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/txtNombrePlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/nombrePlato"
+        android:inputType="text"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/txtDescripcionPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/descripcionPlato"
+        android:maxLength="100"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/txtPrecioPlato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/precio"
+        android:inputType="numberDecimal"
+        android:textSize="20sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEditarPlato"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="@string/editarPlato"
+        android:textColor="@color/white" />
+
+</LinearLayout>
