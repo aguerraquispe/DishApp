@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.dishapp.Adapter.Adapter_Plato;
 import com.example.dishapp.model.Plato;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,18 +42,35 @@ public class AdminListaPlatos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lista_platos);
 
-        rv_platos = (RecyclerView) findViewById(R.id.listaPlatos);
         iniciarFirebase();
 
+        rv_platos = (RecyclerView) findViewById(R.id.listaPlatos);
         rv_platos.setHasFixedSize(true);
         rv_platos.setLayoutManager(new LinearLayoutManager(this));
 
-        listPlato = new ArrayList<>();
-        adapter_plato = new Adapter_Plato(this, listPlato);
+        FirebaseRecyclerOptions<Plato> options =
+                new FirebaseRecyclerOptions.Builder<Plato>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Plato"), Plato.class)
+                        .build();
+
+        //listPlato = new ArrayList<>();
+        adapter_plato = new Adapter_Plato(options);
         rv_platos.setAdapter(adapter_plato);
-        listarDatos();
+        //listarDatos();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter_plato.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter_plato.stopListening();
+    }
+/*
     private void listarDatos() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,7 +88,7 @@ public class AdminListaPlatos extends AppCompatActivity {
             }
         });
     }
-
+*/
     private void iniciarFirebase() {
         //FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
