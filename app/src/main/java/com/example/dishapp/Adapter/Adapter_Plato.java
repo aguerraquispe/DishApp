@@ -42,26 +42,28 @@ public class Adapter_Plato extends FirebaseRecyclerAdapter<Plato, Adapter_Plato.
         super(options);
     }
 
+    //retorna la tarjeta con su respectiva informacion
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.info_plato_admin, parent, false);
         return new ViewHolder(view);
     }
 
+    //pasar la informacion de la bd a la tarjeta
     @Override
     protected void onBindViewHolder(@NonNull Adapter_Plato.ViewHolder holder, int position, @NonNull Plato plato) {
         //Colocar informacion de la base de datos a la tarjeta
         holder.tvCategoriaPlato.setText(plato.getCategoria());
         holder.tvDescripciónPlato.setText(plato.getDescripción());
         holder.tvNombrePlato.setText(plato.getNombrePlato());
-        holder.tvPrecioPlato.setText(plato.toString());
+        holder.tvPrecioPlato.setText(Double.toString(plato.getPrecio()));
 
         //Uso de la libreria picasso para colocar la imagen almacenada en la bd en la tarjeta
         Picasso.with(holder.imgPlato.getContext())
                 .load(plato.getImageURL())
                 .fit()
                 .placeholder(R.mipmap.ic_launcher)
-                .centerCrop()
+                .centerInside()
                 .into(holder.imgPlato);
 
         //Actulizar plato
@@ -159,6 +161,7 @@ public class Adapter_Plato extends FirebaseRecyclerAdapter<Plato, Adapter_Plato.
         });
     }
 
+    //obtener los id de los campos de la tarjeta
     public static class ViewHolder extends RecyclerView.ViewHolder {
         //Declarar varialbes para los campos
         TextView tvNombrePlato, tvDescripciónPlato, tvCategoriaPlato, tvPrecioPlato;

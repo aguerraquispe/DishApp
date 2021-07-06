@@ -30,7 +30,6 @@ public class AdminListaPlatos extends AppCompatActivity {
 
     RecyclerView rv_platos;
     Adapter_Plato adapter_plato;
-    ArrayList<Plato> listPlato;
 
     //Llamar a Firebase
     private FirebaseDatabase firebaseDatabase;
@@ -53,10 +52,8 @@ public class AdminListaPlatos extends AppCompatActivity {
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Plato"), Plato.class)
                         .build();
 
-        //listPlato = new ArrayList<>();
         adapter_plato = new Adapter_Plato(options);
         rv_platos.setAdapter(adapter_plato);
-        //listarDatos();
     }
 
     @Override
