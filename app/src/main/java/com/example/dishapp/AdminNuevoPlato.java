@@ -43,9 +43,9 @@ public class AdminNuevoPlato extends AppCompatActivity {
     private static final int File = 1;
 
     //Llamar a Firebase
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
-    private StorageReference storageReference;
+    private FirebaseDatabase firebaseDatabase; //almacenar informacion en texto
+    private DatabaseReference databaseReference; // almacenar informacion en texto
+    private StorageReference storageReference; //almacena la imagen el el fire storage
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +108,7 @@ public class AdminNuevoPlato extends AppCompatActivity {
             validacion();
         } else {
             //Todos los campos estan correctamente llenados, podemos subirlos al firebase
+            //definimos nombre de la imagen
             StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(path));
             fileReference.putFile(path)
                     //obtenemos la direccion URL de la imagen almacenada en firebase
@@ -120,8 +121,8 @@ public class AdminNuevoPlato extends AppCompatActivity {
                             return fileReference.getDownloadUrl();
                         }
                     })
-                    //Ahora que la imagen se guardo, almacenamos los demas datos
                     .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        //Ahora que la imagen se guardo, almacenamos los demas datos
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
@@ -234,29 +235,4 @@ public class AdminNuevoPlato extends AppCompatActivity {
         }
     }
     ////////////////////////////////////Fin cargarImagenPlato()
-
-    private void subirImagen() {
-        //final String randomkey = UUID.randomUUID().toString();
-        //StorageReference Folder = storageReference.child("Plato" + randomkey);
-
-        StorageReference Folder = storageReference.child("Plato");
-
-        final StorageReference file_name = Folder.child("file" + path.getLastPathSegment());
-
-        file_name.putFile(path)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //databaseReference.child("Plato").child(plato.getUid()).setValue(plato);
-                        Toast.makeText(AdminNuevoPlato.this, "Imagen subida", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        Toast.makeText(AdminNuevoPlato.this, "Error al subir imagen", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 }

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,User_lista_platos.class);
         intent.putExtra("categoria",categoria);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void VerBebidas(View view){
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,User_lista_platos.class);
         intent.putExtra("categoria",categoria);
         startActivity(intent);
-        finish();
+        //finish();
     }
     public void VerRapido(View view){
         categoria = "Fast Food";
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,User_lista_platos.class);
         intent.putExtra("categoria",categoria);
         startActivity(intent);
-        finish();
+        //finish();
     }
     public void VerPostres(View view){
         categoria = "Postres";
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,User_lista_platos.class);
         intent.putExtra("categoria",categoria);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
 }

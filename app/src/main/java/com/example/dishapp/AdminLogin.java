@@ -32,6 +32,8 @@ public class AdminLogin extends AppCompatActivity {
 
             if (string_usuario.isEmpty() || string_password.isEmpty()) {
                 Toast.makeText(this, "Ingresar los campos requeridos", Toast.LENGTH_SHORT).show();
+            } else if (!string_usuario.equals("admin") && !string_password.equals("admin")) {
+                Toast.makeText(this, "usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(this, MainAdmin.class);
                 intent.putExtra("usuario", string_usuario);
