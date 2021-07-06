@@ -59,6 +59,8 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="150"
                     android:hint="@string/descripcionPlato"
                     app:hintTextColor="@color/red">
 
@@ -66,7 +68,7 @@
                         android:id="@+id/txtDescripcionPlato"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="100" />
+                        android:maxLength="150" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
