@@ -1,12 +1,12 @@
 package com.example.dishapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class User_lista_platos extends AppCompatActivity {
     String categoria;
@@ -26,10 +26,9 @@ public class User_lista_platos extends AppCompatActivity {
 
     }
 
-    public void RegresarAMain(View view){
-        Toast.makeText(this,"Regresaste a Main",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,MainActivity.class);
+    public void IrAPedidos(View view){
+        Toast.makeText(this,"Ingresa tus datos",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,User_Datos_Pedido.class);
         startActivity(intent);
-        finish();
     }
 }
