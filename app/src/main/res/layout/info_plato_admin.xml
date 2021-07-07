@@ -75,8 +75,9 @@
 
         <TextView
             android:id="@+id/tvNombrePlato"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
             android:text="Nombre del Plato"
             android:textSize="18dp"
             android:textStyle="bold"
@@ -99,8 +100,9 @@
             android:src="@drawable/ic_image" />
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="105dp"
             android:orientation="vertical">
 
             <LinearLayout

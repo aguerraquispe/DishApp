@@ -13,5 +13,5 @@
     <color name="color_secondary_variant">#c7a500</color>
     <color name="primaryTextColor">@color/black</color>
     <color name="secondaryTextColor">@color/white</color>
-    <color name="gray">#ccc</color>
+    <color name="gray">#ecebe6</color>
 </resources>

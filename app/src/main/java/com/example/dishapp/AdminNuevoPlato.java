@@ -99,8 +99,8 @@ public class AdminNuevoPlato extends AppCompatActivity {
     }
 
     private void subirPlato() {
-        String nombre_string = txtNombrePlato.getText().toString().trim();
-        String descripcion_string = txtDescripcionPlato.getText().toString().trim();
+        String nombre_string = txtNombrePlato.getText().toString().trim().toUpperCase();
+        String descripcion_string = upperCaseFirst(txtDescripcionPlato.getText().toString().trim());
         String precio_string = txtPrecioPlato.getText().toString();
         String categoria_string = dropdownCategorias.getText().toString();
 
@@ -145,41 +145,6 @@ public class AdminNuevoPlato extends AppCompatActivity {
                             }
                         }
                     });
-
-            /*
-            fileReference.putFile(path)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //la imagen se almaceno asi que se pueden subir el resto de datos
-
-                            //obtener codigo simplificado de la imagen
-                            // String image_url;
-                            //Uri imagen = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-
-
-                            //Datos correctos- Agregar a la base de datos
-                            Plato plato = new Plato();
-                            plato.setUid(UUID.randomUUID().toString());
-                            plato.setNombrePlato(nombre_string);
-                            plato.setDescripción(descripcion_string);
-                            plato.setPrecio(Double.parseDouble(precio_string));
-                            plato.setCategoria(categoria_string);
-                            //plato.setImageURL(image_url);
-                            //databaseReference.child("Plato").child(plato.getUid()).setValue(plato);
-                            databaseReference.child(plato.getUid()).setValue(plato);
-                            //subirImagen();
-                            limpiarCajas();
-                            Toast.makeText(AdminNuevoPlato.this, "Plato Registrado", Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(this, "Plato Registrado", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AdminNuevoPlato.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });*/
         }
     }
 
@@ -235,4 +200,11 @@ public class AdminNuevoPlato extends AppCompatActivity {
         }
     }
     ////////////////////////////////////Fin cargarImagenPlato()
+
+    //convertir a mayuscula 1ra letra
+    public static String upperCaseFirst(String val){
+        char[] arr = val.toCharArray();
+        arr[0] = Character.toUpperCase(arr[0]);
+        return new String(arr);
+    }
 }

@@ -88,8 +88,8 @@ public class Adapter_Plato extends FirebaseRecyclerAdapter<Plato, Adapter_Plato.
                 btnActualizar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String nombre_string = nombrePlato.getText().toString().trim();
-                        String descripcion_string = descripciónPlato.getText().toString().trim();
+                        String nombre_string = nombrePlato.getText().toString().trim().toUpperCase();
+                        String descripcion_string = upperCaseFirst(descripciónPlato.getText().toString().trim());
                         String precio_string = precioPlato.getText().toString();
 
                         //Datos correctos- Actualizar la base de datos
@@ -176,5 +176,11 @@ public class Adapter_Plato extends FirebaseRecyclerAdapter<Plato, Adapter_Plato.
         }
     }
 
+    //convertir a mayuscula 1ra letra
+    public static String upperCaseFirst(String val){
+        char[] arr = val.toCharArray();
+        arr[0] = Character.toUpperCase(arr[0]);
+        return new String(arr);
+    }
 }
 

@@ -20,7 +20,8 @@
         <activity android:name=".AdminNuevoPlato" />
         <activity android:name=".MainAdmin" />
         <activity android:name=".AdminLogin" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
