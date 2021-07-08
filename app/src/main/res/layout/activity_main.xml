@@ -23,25 +23,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:gravity="center"
                 android:layout_marginBottom="10dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/admin"
                     android:textColor="@color/black"
-                    android:textSize="12dp"
-                    android:text="@string/admin"/>
+                    android:textSize="12dp" />
 
                 <ImageButton
                     android:id="@+id/buttonAdmin"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:background="@color/transparent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_admin"
-                    android:background="@color/transparent"
-                    android:tint="@color/yellow"/>
+                    android:tint="@color/yellow" />
 
             </LinearLayout>
 
@@ -84,29 +84,55 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/categ_platocarta"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/bg_button"
-                    android:elevation="5dp"
-                    android:onClick="VerPlatosALaCarta"
-                    android:padding="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/food" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Platos a la Carta" />
+
+                    <ImageButton
+                        android:id="@+id/categ_platocarta"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/bg_button"
+                        android:elevation="5dp"
+                        android:onClick="VerPlatosALaCarta"
+                        android:padding="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/food" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bebidas" />
 
 
-                <ImageButton
-                    android:id="@+id/categ_bebida"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/bg_button"
-                    android:elevation="5dp"
-                    android:onClick="VerBebidas"
-                    android:padding="10dp"
-                    android:src="@drawable/drink" />
+                    <ImageButton
+                        android:id="@+id/categ_bebida"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/bg_button"
+                        android:elevation="5dp"
+                        android:onClick="VerBebidas"
+                        android:padding="10dp"
+                        android:src="@drawable/drink" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -116,27 +142,53 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/categ_rapido"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/bg_button"
-                    android:elevation="5dp"
-                    android:onClick="VerRapido"
-                    android:padding="10dp"
-                    android:src="@drawable/burger" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/categ_postre"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/bg_button"
-                    android:elevation="5dp"
-                    android:onClick="VerPostres"
-                    android:padding="10dp"
-                    android:src="@drawable/cake" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Comida Rápida" />
+
+                    <ImageButton
+                        android:id="@+id/categ_rapido"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/bg_button"
+                        android:elevation="5dp"
+                        android:onClick="VerRapido"
+                        android:padding="10dp"
+                        android:src="@drawable/burger" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Postres" />
+
+                    <ImageButton
+                        android:id="@+id/categ_postre"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/bg_button"
+                        android:elevation="5dp"
+                        android:onClick="VerPostres"
+                        android:padding="10dp"
+                        android:src="@drawable/cake" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

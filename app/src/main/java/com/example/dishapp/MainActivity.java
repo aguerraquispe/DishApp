@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void VerPlatosALaCarta(View view){
-        categoria = "Platos a la carta";
-        Toast.makeText(this,"Ingresaste a Platos a la carta",Toast.LENGTH_SHORT).show();
+        categoria = "Platos a la Carta";
+        //Toast.makeText(this,"Ingresaste a Platos a la carta",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,User_lista_platos.class);
         intent.putExtra("categoria",categoria);
         startActivity(intent);
@@ -40,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void VerBebidas(View view){
         categoria = "Bebidas";
-        Toast.makeText(this,"Ingresaste a Bebidas",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Ingresaste a Bebidas",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,User_lista_platos.class);
         intent.putExtra("categoria",categoria);
         startActivity(intent);
         //finish();
     }
     public void VerRapido(View view){
-        categoria = "Fast Food";
-        Toast.makeText(this,"Ingresaste a Fast Food",Toast.LENGTH_SHORT).show();
+        categoria = "Comida Rápida";
+        //Toast.makeText(this,"Ingresaste a Fast Food",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,User_lista_platos.class);
         intent.putExtra("categoria",categoria);
         startActivity(intent);
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void VerPostres(View view){
         categoria = "Postres";
-        Toast.makeText(this,"Ingresaste a Postres",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Ingresaste a Postres",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,User_lista_platos.class);
         intent.putExtra("categoria",categoria);
         startActivity(intent);
