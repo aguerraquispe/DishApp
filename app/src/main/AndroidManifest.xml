@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DishApp">
-        <activity android:name=".User_Pedido_Confirmado"></activity>
+        <activity android:name=".Admin_Lista_Pedido"></activity>
+        <activity android:name=".Admin_Info_Pedido" />
+        <activity android:name=".AdminReportePedidos" />
+        <activity android:name=".User_Pedido_Confirmado" />
         <activity android:name=".User_Datos_Pedido" />
         <activity android:name=".User_lista_platos" />
         <activity android:name=".user_info_plato" />
@@ -20,7 +23,8 @@
         <activity android:name=".AdminNuevoPlato" />
         <activity android:name=".MainAdmin" />
         <activity android:name=".AdminLogin" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

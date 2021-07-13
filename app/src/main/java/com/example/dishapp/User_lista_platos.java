@@ -42,6 +42,7 @@ public class User_lista_platos extends AppCompatActivity {
         categoria = getIntent().getStringExtra("categoria");
         lblCategoria.setText(categoria);
 
+        //conexión y listado de platos
         iniciarFirebase();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
