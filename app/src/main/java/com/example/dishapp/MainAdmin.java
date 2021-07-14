@@ -1,19 +1,18 @@
 package com.example.dishapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 
 public class MainAdmin extends AppCompatActivity {
 
     String usuario;
-    MaterialButton btnNuevoPlato, btnListaPedidos, btnVerPlatos;
+    MaterialButton btnNuevoPlato, btnListaPedidos, btnVerPlatos, btnReportes;
     TextView txtUsuario;
 
     @Override
@@ -27,12 +26,14 @@ public class MainAdmin extends AppCompatActivity {
         btnVerPlatos = (MaterialButton) findViewById(R.id.btnVerPlatos);
         btnNuevoPlato = (MaterialButton) findViewById(R.id.btnNuevoPlato);
         btnListaPedidos = (MaterialButton) findViewById(R.id.btnListaPedidos);
+        btnReportes = (MaterialButton) findViewById(R.id.btnReporte);
 
         txtUsuario.setText("Bienvenido " + usuario);
 
         btnVerPlatos.setOnClickListener(mClicked);
         btnNuevoPlato.setOnClickListener(mClicked);
         btnListaPedidos.setOnClickListener(mClicked);
+        btnReportes.setOnClickListener(mClicked);
     }
 
     private View.OnClickListener mClicked = view -> {
@@ -48,7 +49,13 @@ public class MainAdmin extends AppCompatActivity {
                 break;
 
             case R.id.btnListaPedidos:
-                Toast.makeText(this, "Lista pedidos", Toast.LENGTH_SHORT).show();
+                Intent listaPedidos = new Intent(this,Admin_Lista_Pedido.class);
+                startActivity(listaPedidos);
+                break;
+
+            case R.id.btnReporte:
+                Intent reportes = new Intent(this,AdminReportePedidos.class);
+                startActivity(reportes);
                 break;
         }
     };

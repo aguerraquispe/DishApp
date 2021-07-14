@@ -81,6 +81,15 @@
                 android:text="@string/lista_platos"
                 android:textColor="@color/red" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReporte"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Reporte de pedidos"
+                android:textColor="@color/red" />
+
 
         </LinearLayout>
     </LinearLayout>
