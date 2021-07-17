@@ -5,7 +5,7 @@
     <color name="red">#d50000</color>
     <color name="yellow">#ffd600</color>
     <color name="light_red">#50d50000</color>
-    <color name="transparent">#50ffffff</color>
+    <color name="transparent">#00FFFFFF</color>
 
     <color name="color_primary">#d50000</color>
     <color name="color_primary_variant">#9b0000</color>

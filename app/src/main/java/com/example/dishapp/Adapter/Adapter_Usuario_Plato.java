@@ -1,24 +1,41 @@
 package com.example.dishapp.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dishapp.R;
+import com.example.dishapp.UserDetallePlato;
+import com.example.dishapp.User_lista_platos;
 import com.example.dishapp.model.Plato;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 public class Adapter_Usuario_Plato extends FirebaseRecyclerAdapter<Plato, Adapter_Usuario_Plato.ViewHolder> {
 
-    public Adapter_Usuario_Plato(@NonNull FirebaseRecyclerOptions<Plato> options) {
+    private OnItemClickListener listener;
+    private String idUsuario;
+
+    /*public Adapter_Usuario_Plato(@NonNull FirebaseRecyclerOptions<Plato> options) {
         super(options);
+    }*/
+
+    public Adapter_Usuario_Plato(@NonNull FirebaseRecyclerOptions<Plato> options, final String idUsuario) {
+        super(options);
+        this.idUsuario = idUsuario;
     }
 
     @Override
@@ -35,6 +52,19 @@ public class Adapter_Usuario_Plato extends FirebaseRecyclerAdapter<Plato, Adapte
                 .placeholder(R.mipmap.ic_launcher)
                 .centerInside()
                 .into(holder.imgPlato);
+
+        holder.tarjetaPlato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Intent intent = new Intent(v.getContext(), UserDetallePlato.class);
+                intent.putExtra("idPlato", plato.getUid());
+                intent.putExtra("idUsuario", idUsuario);
+
+                activity.startActivity(intent);
+                //Toast.makeText(v.getContext(), "Plato: " + plato.getUid(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -43,18 +73,40 @@ public class Adapter_Usuario_Plato extends FirebaseRecyclerAdapter<Plato, Adapte
         return new ViewHolder(view);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         //Declarar varialbes para los campos
+        CardView tarjetaPlato;
         TextView tvNombrePlato, tvDescripciónPlato, tvPrecioPlato;
         ImageView imgPlato;
 
         public ViewHolder(View view) {
             super(view);
+            tarjetaPlato = view.findViewById(R.id.tarjetaPlato);
             imgPlato = view.findViewById(R.id.imgPlato);
 
             tvNombrePlato = view.findViewById(R.id.tvNombrePlato);
             tvDescripciónPlato = view.findViewById(R.id.tvDescripciónPlato);
             tvPrecioPlato = view.findViewById(R.id.tvPrecioPlato);
+
+            /**********************************/
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
+                    }
+                }
+            });
         }
+    }
+
+    /**********************************************************/
+    public interface OnItemClickListener {
+        void onItemClick(DataSnapshot dataSnapshot, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

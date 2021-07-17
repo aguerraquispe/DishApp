@@ -11,7 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="20dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/datosPedido"
                 android:textColor="@color/black"
-                android:textSize="25dp" />
+                android:textSize="18dp" />
 
         </LinearLayout>
 
@@ -31,7 +33,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
             android:hint="@string/nombreUser"
             app:errorEnabled="true"
             app:hintTextColor="@color/red">
@@ -40,7 +41,7 @@
                 android:id="@+id/txtNombreUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,20 +67,52 @@
             android:layout_height="wrap_content"
             android:hint="@string/numeroUser"
             app:errorEnabled="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="9"
             app:hintTextColor="@color/red">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtNumeroUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:maxLength="9"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ListView
+            android:id="@+id/lvCarrito"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="Total a pagar: S/" />
+
+            <TextView
+                android:id="@+id/tvPrecioTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:text="00.00" />
+
+        </LinearLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:hint="@string/resumenUser"
             app:errorEnabled="true"
             app:hintTextColor="@color/red">
@@ -96,6 +129,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:hint="@string/precioTotalUser"
             app:errorEnabled="true"
             app:hintTextColor="@color/red">

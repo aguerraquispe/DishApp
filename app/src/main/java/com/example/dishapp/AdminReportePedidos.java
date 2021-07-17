@@ -35,22 +35,22 @@ public class AdminReportePedidos extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerTabla);
 
-        setRecyclerView();
+        //setRecyclerView();
 
     }
 
-    private void setRecyclerView() {
+    /*private void setRecyclerView() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter_Pedido(this,getList());
         recyclerView.setAdapter(adapter);
-    }
+    }*/
 
-    private List<Pedido> getList(){
+    /*private List<Pedido> getList(){
         List<Pedido> lista_pedido = new ArrayList<>();
         lista_pedido.add(new Pedido("Abel","jiron","9554","todo",195.5,"12/5/21","enviado", (List<Plato>) new Plato("marisco",15.5,3,30.0)));
         return  lista_pedido;
-    }
+    }*/
 
     void llenarTabla(){
         //conexion

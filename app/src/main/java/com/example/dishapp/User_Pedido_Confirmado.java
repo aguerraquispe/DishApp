@@ -2,6 +2,7 @@ package com.example.dishapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,12 +22,16 @@ public class User_Pedido_Confirmado extends AppCompatActivity {
 
         btnFinalizar.setOnClickListener(view -> {
             Toast.makeText(this, "Muchas gracias por su preferencia", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
 
         });
+    }
 
+    //metodo para cuando se toca el boton de "atras", usar override y llamar metodo ya establecido
+    @Override
+    public void onBackPressed(){
 
     }
 }

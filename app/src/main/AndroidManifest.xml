@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DishApp">
-        <activity android:name=".Admin_Lista_Pedido"></activity>
+        <activity android:name=".AdminInfoPedido"></activity>
+        <activity android:name=".UserDetallePlato" />
+        <activity android:name=".Admin_Lista_Pedido" />
         <activity android:name=".Admin_Info_Pedido" />
         <activity android:name=".AdminReportePedidos" />
         <activity android:name=".User_Pedido_Confirmado" />

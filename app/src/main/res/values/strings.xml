@@ -24,7 +24,7 @@
     <string name="categoria">Categoria</string>
 
     //Datos de Pedido
-    <string name="datosPedido">Datos de Pedido</string>
+    <string name="datosPedido">Ingresa tus datos</string>
     <string name="nombreUser">Nombre Completo</string>
     <string name="direccionUser">Dirección</string>
     <string name="numeroUser">Número</string>
@@ -37,5 +37,7 @@
     <string name="pedidoRegistradoMensaje">Su pedido fue registrado exitosamente, pronto nos contactaremos contigo :)</string>
     <string name="btnFinalizar">Finalizar</string>
     <string name="editarPlato">Editar Plato</string>
+    <string name="agregar_carrito">Agregar al Carrito</string>
+    <string name="pedidoRealizado">Finalizar Pedido</string>
 
 </resources>

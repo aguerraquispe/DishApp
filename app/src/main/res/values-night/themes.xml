@@ -13,4 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="TextAppearance.AppCompat.TextStyle">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.DishApp">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
 </resources>

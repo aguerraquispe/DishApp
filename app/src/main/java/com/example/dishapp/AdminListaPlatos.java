@@ -67,25 +67,7 @@ public class AdminListaPlatos extends AppCompatActivity {
         super.onStop();
         adapter_plato.stopListening();
     }
-/*
-    private void listarDatos() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Plato plato = dataSnapshot.getValue(Plato.class);
-                    listPlato.add(plato);
-                }
-                adapter_plato.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
-    }
-*/
     private void iniciarFirebase() {
         //FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
