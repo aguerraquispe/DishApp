@@ -7,6 +7,7 @@ public class Usuario {
     private String nombre;
     private String direccion;
     private String numero;
+    private String estado;
     private String resumen; //creo que no va
     //private double preciototal; // creo que no va
     private HashMap<String, Pedido_cliente> carrito;
@@ -62,6 +63,14 @@ public class Usuario {
         this.numero = numero;
     }
 
+    public String getEstado() {
+        return this.estado;
+    }
+
+    public void setEstado(final String estado) {
+        this.estado = estado;
+    }
+
     public String getResumen() {
         return this.resumen;
     }
@@ -72,7 +81,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return nombre + " - " + numero;
+        return estado + " - " + nombre;
         //return idCliente;
     }
 

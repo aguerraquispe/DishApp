@@ -1,7 +1,11 @@
 package com.example.dishapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +22,7 @@ import com.example.dishapp.model.Pedido_cliente;
 import com.example.dishapp.model.Plato;
 import com.example.dishapp.model.Usuario;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,15 +35,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class Admin_Lista_Pedido extends AppCompatActivity {
-
+    //Esta java se usa en la app
 
     private ListView lvPedidos;
+    private MaterialButton verEnProceso, verFinalizado;
 
     ArrayList<Usuario> listaPedidos;
     ArrayAdapter<Usuario> adapter;
-
-    RecyclerView rv_pedidos;
-    Adapter_Plato adapter_pedido;
 
     //Llamar a Firebase
     FirebaseDatabase mibase;
@@ -53,6 +56,9 @@ public class Admin_Lista_Pedido extends AppCompatActivity {
         mireference = mibase.getReference();
 
         lvPedidos = (ListView) findViewById(R.id.lvPedidos);
+        verEnProceso = (MaterialButton) findViewById(R.id.verEnProceso);
+        verFinalizado = (MaterialButton) findViewById(R.id.verFinalizado);
+
 
         listaPedidos = new ArrayList<>();
         adapter = new ArrayAdapter<Usuario>(Admin_Lista_Pedido.this, android.R.layout.simple_list_item_1, listaPedidos);
@@ -62,8 +68,8 @@ public class Admin_Lista_Pedido extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //abrir nuevo activity con la informacion del cliente
-                Intent intent = new Intent(getBaseContext(),AdminInfoPedido.class);
-                intent.putExtra("idCliente",listaPedidos.get(position).getIdCliente());
+                Intent intent = new Intent(getBaseContext(), AdminInfoPedido.class);
+                intent.putExtra("idCliente", listaPedidos.get(position).getIdCliente());
                 startActivity(intent);
             }
         });
@@ -118,29 +124,19 @@ public class Admin_Lista_Pedido extends AppCompatActivity {
             }
         });
 
+        verEnProceso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Admin_Lista_Pedido.this, "En proceso", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        rv_pedidos = (RecyclerView) findViewById(R.id.listaPedidos);
-        rv_pedidos.setHasFixedSize(true);
-        rv_pedidos.setLayoutManager(new LinearLayoutManager(this));
-
-        FirebaseRecyclerOptions<Plato> options =
-                new FirebaseRecyclerOptions.Builder<Plato>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Plato"), Plato.class)
-                        .build();
-
-        adapter_pedido = new Adapter_Plato(options);
-        rv_pedidos.setAdapter(adapter_pedido);
+        verFinalizado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Admin_Lista_Pedido.this, "Finalizado", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter_pedido.startListening();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter_pedido.stopListening();
-    }
 }

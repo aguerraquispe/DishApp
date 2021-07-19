@@ -25,8 +25,8 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 public class Adapter_Usuario_Plato extends FirebaseRecyclerAdapter<Plato, Adapter_Usuario_Plato.ViewHolder> {
+    //Esta java se usa en la app
 
-    private OnItemClickListener listener;
     private String idUsuario;
 
     /*public Adapter_Usuario_Plato(@NonNull FirebaseRecyclerOptions<Plato> options) {
@@ -88,25 +88,6 @@ public class Adapter_Usuario_Plato extends FirebaseRecyclerAdapter<Plato, Adapte
             tvDescripciónPlato = view.findViewById(R.id.tvDescripciónPlato);
             tvPrecioPlato = view.findViewById(R.id.tvPrecioPlato);
 
-            /**********************************/
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && listener != null) {
-                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
-                    }
-                }
-            });
         }
-    }
-
-    /**********************************************************/
-    public interface OnItemClickListener {
-        void onItemClick(DataSnapshot dataSnapshot, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
     }
 }

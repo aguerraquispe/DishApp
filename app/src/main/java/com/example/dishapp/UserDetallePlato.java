@@ -25,20 +25,24 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-public class UserDetallePlato extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
 
-    FirebaseDatabase mibase;
-    DatabaseReference mireference;
+public class UserDetallePlato extends AppCompatActivity {
 
     TextView tvNombrePlato, tvPrecioPlato, tvCantidad, tvPreciototal;
     ImageView imgPlato;
     ImageButton addPlato, restPlato;
-
     MaterialButton btnAgregar;
+
+    FirebaseDatabase mibase;
+    DatabaseReference mireference;
 
     Plato miplato;
     String idPlato;
     String idUsuario;
+
+    boolean ordenado;
 
     int cantidad = 1;
 
@@ -61,6 +65,8 @@ public class UserDetallePlato extends AppCompatActivity {
 
         tvCantidad.setText(Integer.toString(cantidad));
 
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.icon_logo);
 
         addPlato.setOnClickListener(mClicked);
         restPlato.setOnClickListener(mClicked);
@@ -83,10 +89,30 @@ public class UserDetallePlato extends AppCompatActivity {
                         .load(miplato.getImageURL())
                         .fit()
                         .placeholder(R.mipmap.ic_launcher)
-                        .centerInside()
+                        .centerCrop()
                         .into(imgPlato);
 
-                setTitle("Detalle " + miplato.getNombrePlato());
+                setTitle(miplato.getNombrePlato());
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        //comprobar si el plato elegido ya se escogio antes
+        mireference.child("clientes").child(idUsuario).child("carrito").child(idPlato).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                if (snapshot.hasChildren()) {
+                    ordenado = true;
+                    //Toast.makeText(UserDetallePlato.this, "ya lo agregaste al carrito", Toast.LENGTH_SHORT).show();
+                } else {
+                    ordenado = false;
+                }
+
             }
 
             @Override
@@ -106,25 +132,33 @@ public class UserDetallePlato extends AppCompatActivity {
                 cambiarCantidad(1);
                 break;
             case R.id.btnAgregar:
-                mireference.child("clientes").child(idUsuario).child("carrito").child(idPlato).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                        Pedido_cliente mipedido = new Pedido_cliente();
-                        mipedido.setIdPlato(idPlato);
-                        mipedido.setNombrePlato(tvNombrePlato.getText().toString());
-                        mipedido.setCantidad(Integer.parseInt(tvCantidad.getText().toString()));
-                        mipedido.setPrecioTotal(Double.parseDouble(tvPreciototal.getText().toString()));
+                String nombrePlato = tvNombrePlato.getText().toString();
+                int cantidad = Integer.parseInt(tvCantidad.getText().toString());
+                double precioTotal = Double.parseDouble(tvPreciototal.getText().toString());
 
-                        mibase.getReference("clientes").child(idUsuario).child("carrito").child(idPlato).setValue(mipedido);
-                    }
+                if (!ordenado) {
+                    //1ra vez que se agrega al carrito el plato
+                    Map<String, Object> pedido = new HashMap<>();
 
-                    @Override
-                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                    pedido.put("idPlato", idPlato);
+                    pedido.put("nombrePlato", nombrePlato);
+                    pedido.put("precioTotal", precioTotal);
+                    pedido.put("cantidad", cantidad);
 
-                    }
-                });
-                Toast.makeText(this, "Agregado al carrito", Toast.LENGTH_SHORT).show();
-                finish();
+                    mireference.child("clientes").child(idUsuario).child("carrito").child(idPlato).setValue(pedido);
+                    Toast.makeText(this, "Agregado al carrito", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    //el plato ya fue pedido antes
+                    Map<String, Object> pedido = new HashMap<>();
+
+                    pedido.put("precioTotal", precioTotal);
+                    pedido.put("cantidad", cantidad);
+
+                    mireference.child("clientes").child(idUsuario).child("carrito").child(idPlato).updateChildren(pedido);
+                    Toast.makeText(this, "Plato Actualizado", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
                 break;
         }

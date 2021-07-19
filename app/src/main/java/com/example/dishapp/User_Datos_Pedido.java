@@ -26,11 +26,12 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User_Datos_Pedido extends AppCompatActivity {
+    //Esta java se usa en la app
 
     private String idUsuario;
-    private String idPlato;
     private double precioFinal;
 
     private TextInputEditText txtNombreUsuario, txtDireccion, txtNumero, txtPrecioTotal;
@@ -51,7 +52,6 @@ public class User_Datos_Pedido extends AppCompatActivity {
         setContentView(R.layout.activity_user_datos_pedido);
 
         idUsuario = getIntent().getExtras().getString("idUsuario");
-        idPlato = getIntent().getExtras().getString("idPlato");
         precioFinal = getIntent().getExtras().getDouble("precioFinal");
 
         txtNombreUsuario = (TextInputEditText) findViewById(R.id.txtNombreUser);
@@ -88,28 +88,18 @@ public class User_Datos_Pedido extends AppCompatActivity {
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mireference.child("clientes").child(idUsuario).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                Usuario miusuario = new Usuario();
-                                miusuario.setIdCliente(idUsuario);
-                                miusuario.setNombre(string_usuario);
-                                miusuario.setDireccion(string_direccion);
-                                miusuario.setNumero(string_numero);
+                        //agregamos los datos junto al id del cliente
+                        HashMap<String, Object> miusuario = new HashMap<>();
+                        miusuario.put("direccion", string_direccion);
+                        miusuario.put("nombre", string_usuario);
+                        miusuario.put("numero", string_numero);
+                        miusuario.put("estado","En proceso");
 
-                                mibase.getReference("clientes").child(idUsuario).child("informacion").setValue(miusuario);
+                        mireference.child("clientes").child(idUsuario).child("informacion").updateChildren(miusuario);
 
-                                Intent intent = new Intent(User_Datos_Pedido.this, User_Pedido_Confirmado.class);
-                                intent.putExtra("nombreUsuario", string_usuario);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                            }
-                        });
+                        Intent intent = new Intent(User_Datos_Pedido.this, User_Pedido_Confirmado.class);
+                        startActivity(intent);
+                        finish();
                     }
                 });
 
@@ -126,6 +116,7 @@ public class User_Datos_Pedido extends AppCompatActivity {
             }
         });
 
+        //listar platos pedidos por el usuario
         mireference.child("clientes").child(idUsuario).child("carrito").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {

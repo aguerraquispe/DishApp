@@ -20,32 +20,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/admin"
-                    android:textColor="@color/black"
-                    android:textSize="12dp" />
-
-                <ImageButton
-                    android:id="@+id/buttonAdmin"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_admin"
-                    android:tint="@color/yellow" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -102,7 +76,6 @@
                         android:layout_marginHorizontal="10dp"
                         android:background="@drawable/bg_button"
                         android:elevation="5dp"
-                        android:onClick="VerPlatosALaCarta"
                         android:padding="10dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/food" />
@@ -128,7 +101,6 @@
                         android:layout_marginHorizontal="10dp"
                         android:background="@drawable/bg_button"
                         android:elevation="5dp"
-                        android:onClick="VerBebidas"
                         android:padding="10dp"
                         android:src="@drawable/drink" />
 
@@ -160,7 +132,6 @@
                         android:layout_marginHorizontal="10dp"
                         android:background="@drawable/bg_button"
                         android:elevation="5dp"
-                        android:onClick="VerRapido"
                         android:padding="10dp"
                         android:src="@drawable/burger" />
 
@@ -184,13 +155,32 @@
                         android:layout_marginHorizontal="10dp"
                         android:background="@drawable/bg_button"
                         android:elevation="5dp"
-                        android:onClick="VerPostres"
                         android:padding="10dp"
                         android:src="@drawable/cake" />
 
                 </LinearLayout>
 
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_circle"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/buttonAdmin"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_admin2"
+                android:tint="@color/white" />
+
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

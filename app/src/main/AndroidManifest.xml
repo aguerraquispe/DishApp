@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dishapp">
     <!-- Permitir acceso a la galeria del dispositivo -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- Permiso de Internet por usar Firebase -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Permiso de Internet por usar Firebase -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Permiso de LLamadas -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"

@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center">
 
             <TextView
@@ -29,13 +29,40 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/verEnProceso"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                android:text="En Proceso"
+                android:textColor="@color/white" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/verFinalizado"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                android:text="Finalizado"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
         <ListView
             android:id="@+id/lvPedidos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp" />
 
-
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -51,7 +78,7 @@
                 tools:listitem="@layout/activity_admin_info_pedido" />
 
         </LinearLayout>
-
+-->
     </LinearLayout>
 </FrameLayout>
 

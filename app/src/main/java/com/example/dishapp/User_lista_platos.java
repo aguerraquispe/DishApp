@@ -32,8 +32,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class User_lista_platos extends AppCompatActivity {
-    String categoria;
-    public String idUsuario;
+    //Esta java se usa en la app
+
+    private String categoria;
+    private String idUsuario;
 
     private TextView lblCategoria;
     private MaterialButton btnOrdenar;
@@ -42,9 +44,11 @@ public class User_lista_platos extends AppCompatActivity {
     Usuario miusuario;
     double string_preciofinal = 0;
 
+    //recyclerview y adapter para mostrar tarjetas de platos
     RecyclerView rv_platos;
     Adapter_Usuario_Plato adapter_usuario_plato;
 
+    //arraylist para obtener el precio total de todos los platos pedidos por el usuario
     ArrayList<Pedido_cliente> arrayprecio;
 
     //Llamar a Firebase
@@ -61,21 +65,22 @@ public class User_lista_platos extends AppCompatActivity {
         //asignando valores
         lblCategoria = (TextView) findViewById(R.id.lblCategoria);
         layoutOrdenar = (LinearLayout) findViewById(R.id.layoutOrdenar);
-        btnOrdenar = findViewById(R.id.btnOrdenar);
-
-        //seteando de activity anterior
-        idUsuario = getIntent().getStringExtra("usuario");
-        categoria = getIntent().getStringExtra("categoria");
-        lblCategoria.setText(categoria);
-
-        //conexión y listado de platos
-        mibase = FirebaseDatabase.getInstance();
-        mireference = mibase.getReference();
-
+        btnOrdenar = (MaterialButton) findViewById(R.id.btnOrdenar);
         rv_platos = (RecyclerView) findViewById(R.id.userListaPlatos);
         rv_platos.setHasFixedSize(true);
         rv_platos.setLayoutManager(new LinearLayoutManager(this));
 
+        //seteando categoria y el id del usuario del activity anterior
+        idUsuario = getIntent().getStringExtra("usuario");
+        categoria = getIntent().getStringExtra("categoria");
+        //reemplazamos el texto de la categoria
+        lblCategoria.setText(categoria);
+
+        //conexión a bd
+        mibase = FirebaseDatabase.getInstance();
+        mireference = mibase.getReference();
+
+        //listado de platos dependiendo de la categoria
         FirebaseRecyclerOptions<Plato> options =
                 new FirebaseRecyclerOptions.Builder<Plato>()
                         .setQuery(mibase.getReference().child("Plato").orderByChild("categoria").equalTo(categoria), Plato.class)
@@ -99,6 +104,9 @@ public class User_lista_platos extends AppCompatActivity {
                             if (snapshot.hasChildren()) {
                                 for (DataSnapshot item : snapshot.getChildren()) {
                                     String idPlato = item.getKey();
+
+                                    /*Pedido_cliente mipedido = item.child(idPlato).getValue(Pedido_cliente.class);
+                                    arrayprecio.add(mipedido);*/
 
                                     mireference.child("clientes").child(idUsuario).child("carrito").child(idPlato).addValueEventListener(new ValueEventListener() {
                                         @Override
@@ -163,8 +171,8 @@ public class User_lista_platos extends AppCompatActivity {
 
     public void IrAPedidos(View view) {
         Intent intent = new Intent(this, User_Datos_Pedido.class);
-        intent.putExtra("precioFinal",string_preciofinal);
-        intent.putExtra("idUsuario",idUsuario);
+        intent.putExtra("precioFinal", string_preciofinal);
+        intent.putExtra("idUsuario", idUsuario);
         startActivity(intent);
     }
 

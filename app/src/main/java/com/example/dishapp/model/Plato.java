@@ -7,17 +7,8 @@ public class Plato {
     private double Precio;
     private String Categoria;
     private String imageURL;
-    private int Cantidad;
-    private double PrecioSubtotal;
 
     public Plato() {
-    }
-
-    public Plato(String nombrePlato, double precio, int cantidad, double precioSubtotal) {
-        this.NombrePlato = nombrePlato;
-        this.Precio = precio;
-        this.Cantidad = cantidad;
-        this.PrecioSubtotal = precioSubtotal;
     }
 
     public String getUid() {
@@ -66,22 +57,6 @@ public class Plato {
 
     public void setImageURL(final String imageURL) {
         this.imageURL = imageURL;
-    }
-
-    public int getCantidad() {
-        return this.Cantidad;
-    }
-
-    public void setCantidad(final int cantidad) {
-        this.Cantidad = cantidad;
-    }
-
-    public double getPrecioSubtotal() {
-        return this.PrecioSubtotal;
-    }
-
-    public void setPrecioSubtotal(final double precioSubtotal) {
-        this.PrecioSubtotal = precioSubtotal;
     }
 
     @Override

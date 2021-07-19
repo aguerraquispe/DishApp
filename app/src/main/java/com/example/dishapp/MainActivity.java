@@ -18,15 +18,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
+    //Esta java se usa en la app
 
     FirebaseDatabase mibase;
     DatabaseReference mireference;
-    Usuario usuario;
+    String idUsuario;
+    //Usuario usuario;
 
-    ImageButton btnAdmin;
+    ImageButton buttonAdmin, categ_platocarta, categ_bebida, categ_rapido, categ_postre;
     String categoria;
 
     @Override
@@ -35,19 +38,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnAdmin = (ImageButton) findViewById(R.id.buttonAdmin);
+        buttonAdmin = (ImageButton) findViewById(R.id.buttonAdmin);
+        categ_platocarta = (ImageButton) findViewById(R.id.categ_platocarta);
+        categ_bebida = (ImageButton) findViewById(R.id.categ_bebida);
+        categ_rapido = (ImageButton) findViewById(R.id.categ_rapido);
+        categ_postre = (ImageButton) findViewById(R.id.categ_postre);
 
-
-        btnAdmin.setOnClickListener(view -> {
-
-            Intent intent = new Intent(this, AdminLogin.class);
-            startActivity(intent);
-        });
+        buttonAdmin.setOnClickListener(mClicked);
+        categ_platocarta.setOnClickListener(mClicked);
+        categ_bebida.setOnClickListener(mClicked);
+        categ_rapido.setOnClickListener(mClicked);
+        categ_postre.setOnClickListener(mClicked);
 
         mibase = FirebaseDatabase.getInstance();
         mireference = mibase.getReference("clientes");
 
-        mireference.child("clientes").addValueEventListener(new ValueEventListener() {
+        //usuario = new Usuario();
+        idUsuario = UUID.randomUUID().toString();
+        HashMap<String, Object> miusuario = new HashMap<>();
+        miusuario.put("idCliente", idUsuario);
+
+        mireference.child(idUsuario).child("informacion").setValue(miusuario);
+
+        /*mireference.child("clientes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 //creamos el id del cliente y lo almacenamos en la tabla clientes
@@ -61,43 +74,45 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
             }
-        });
+        });*/
+    }
+
+    private View.OnClickListener mClicked = view -> {
+        switch (view.getId()) {
+            case R.id.buttonAdmin:
+                Intent intent = new Intent(this, AdminLogin.class);
+                startActivity(intent);
+                break;
+            case R.id.categ_platocarta:
+                categoria = "Platos a la Carta";
+                verListaDisponible(categoria);
+                break;
+            case R.id.categ_bebida:
+                categoria = "Bebidas";
+                verListaDisponible(categoria);
+                break;
+            case R.id.categ_rapido:
+                categoria = "Comida Rápida";
+                verListaDisponible(categoria);
+                break;
+            case R.id.categ_postre:
+                categoria = "Postres";
+                verListaDisponible(categoria);
+                break;
+        }
+    };
+
+    private void verListaDisponible(String categoria) {
+        Intent intent = new Intent(this, User_lista_platos.class);
+        intent.putExtra("categoria", categoria);
+        intent.putExtra("usuario", idUsuario);
+        startActivity(intent);
     }
 
     //Eliminar id del usuario en caso se salga de la aplicacion
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         mireference.child(usuario.getIdCliente()).removeValue();
-    }
-
-    public void VerPlatosALaCarta(View view){
-        categoria = "Platos a la Carta";
-        Intent intent = new Intent(this,User_lista_platos.class);
-        intent.putExtra("categoria",categoria);
-        intent.putExtra("usuario",usuario.getIdCliente());
-        startActivity(intent);
-    }
-    public void VerBebidas(View view){
-        categoria = "Bebidas";
-        Intent intent = new Intent(this,User_lista_platos.class);
-        intent.putExtra("categoria",categoria);
-        intent.putExtra("usuario",usuario.getIdCliente());
-        startActivity(intent);
-    }
-    public void VerRapido(View view){
-        categoria = "Comida Rápida";
-        Intent intent = new Intent(this,User_lista_platos.class);
-        intent.putExtra("categoria",categoria);
-        intent.putExtra("usuario",usuario.getIdCliente());
-        startActivity(intent);
-    }
-    public void VerPostres(View view){
-        categoria = "Postres";
-        Intent intent = new Intent(this,User_lista_platos.class);
-        intent.putExtra("categoria",categoria);
-        intent.putExtra("usuario",usuario.getIdCliente());
-        startActivity(intent);
-    }
-
+    }*/
 }

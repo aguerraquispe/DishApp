@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Adapter_Plato extends FirebaseRecyclerAdapter<Plato, Adapter_Plato.ViewHolder> {
+    //Esta java se usa en la app
 
     public Adapter_Plato(@NonNull FirebaseRecyclerOptions<Plato> options) {
         super(options);
@@ -89,7 +90,8 @@ public class Adapter_Plato extends FirebaseRecyclerAdapter<Plato, Adapter_Plato.
                     @Override
                     public void onClick(View v) {
                         String nombre_string = nombrePlato.getText().toString().trim().toUpperCase();
-                        String descripcion_string = upperCaseFirst(descripciónPlato.getText().toString().trim());
+                        //String descripcion_string = upperCaseFirst(descripciónPlato.getText().toString().trim());
+                        String descripcion_string = descripciónPlato.getText().toString().trim();
                         String precio_string = precioPlato.getText().toString();
 
                         //Datos correctos- Actualizar la base de datos

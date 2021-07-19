@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.UUID;
 
 public class AdminNuevoPlato extends AppCompatActivity {
+    //Esta java se usa en la app
 
     private TextInputEditText txtNombrePlato, txtDescripcionPlato, txtPrecioPlato;
     private AutoCompleteTextView dropdownCategorias;
@@ -100,7 +101,8 @@ public class AdminNuevoPlato extends AppCompatActivity {
 
     private void subirPlato() {
         String nombre_string = txtNombrePlato.getText().toString().trim().toUpperCase();
-        String descripcion_string = upperCaseFirst(txtDescripcionPlato.getText().toString().trim());
+        //String descripcion_string = upperCaseFirst(txtDescripcionPlato.getText().toString().trim());
+        String descripcion_string = txtDescripcionPlato.getText().toString().trim();
         String precio_string = txtPrecioPlato.getText().toString();
         String categoria_string = dropdownCategorias.getText().toString();
 
