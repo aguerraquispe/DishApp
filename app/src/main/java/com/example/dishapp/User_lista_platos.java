@@ -90,6 +90,7 @@ public class User_lista_platos extends AppCompatActivity {
         rv_platos.setAdapter(adapter_usuario_plato);
 
 
+        //comprobar si ya hay carrito existente
         mireference.child("clientes").child(idUsuario).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {

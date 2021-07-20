@@ -29,10 +29,6 @@ public class Adapter_Usuario_Plato extends FirebaseRecyclerAdapter<Plato, Adapte
 
     private String idUsuario;
 
-    /*public Adapter_Usuario_Plato(@NonNull FirebaseRecyclerOptions<Plato> options) {
-        super(options);
-    }*/
-
     public Adapter_Usuario_Plato(@NonNull FirebaseRecyclerOptions<Plato> options, final String idUsuario) {
         super(options);
         this.idUsuario = idUsuario;

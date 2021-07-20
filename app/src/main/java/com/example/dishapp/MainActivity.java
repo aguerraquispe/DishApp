@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mibase = FirebaseDatabase.getInstance();
         mireference = mibase.getReference("clientes");
 
-        //usuario = new Usuario();
+        //se crea id random
         idUsuario = UUID.randomUUID().toString();
         HashMap<String, Object> miusuario = new HashMap<>();
         miusuario.put("idCliente", idUsuario);
@@ -110,9 +110,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Eliminar id del usuario en caso se salga de la aplicacion
-    /*@Override
+    @Override
     protected void onDestroy() {
+        mireference.child(idUsuario).removeValue();
         super.onDestroy();
-        mireference.child(usuario.getIdCliente()).removeValue();
-    }*/
+    }
 }
